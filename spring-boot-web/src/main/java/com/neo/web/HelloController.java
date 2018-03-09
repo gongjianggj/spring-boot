@@ -26,5 +26,8 @@ public class HelloController {
         session.setAttribute("uid", uid);
         return session.getId();
     }
-
+    @RequestMapping("/getUid")
+    String getUid(HttpSession session){
+        return session.getId();
+    }
 }

@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by summer on 2017/5/5.
  */
@@ -68,4 +70,29 @@ public class UserDaoImpl implements UserDao {
         Query query=new Query(Criteria.where("id").is(id));
         mongoTemplate.remove(query,UserEntity.class);
     }
+
+    /**
+     * 查询一条数据
+     * @param id
+     * @return
+     */
+    @Override
+    public UserEntity findUserById(long id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        UserEntity userEntity = mongoTemplate.findOne(query,UserEntity.class);
+        return userEntity;
+    }
+
+    /**
+     * 模糊查询:查询多条数据
+     * @return
+     */
+    public List<UserEntity> getListUserByUserName(){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("userName").regex("gongjiang"));
+        List<UserEntity> list = mongoTemplate.find(query,UserEntity.class);
+        return list;
+    }
+
 }

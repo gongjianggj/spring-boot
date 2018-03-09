@@ -21,7 +21,10 @@ public class WebConfiguration {
     public RemoteIpFilter remoteIpFilter() {
         return new RemoteIpFilter();
     }
-    
+    //Spring 提供了FilterRegistrationBean类，此类提供setOrder方法，可以为filter设置排序值，
+    //让spring在注册web
+    //filter之前排序后再依次注册。
+    //利用这种方式，我们可以对filter排序，可自行测试
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
 
